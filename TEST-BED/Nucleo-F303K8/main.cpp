@@ -4,6 +4,15 @@
     This program is a further development of another bachelors project, original source: https://github.com/AlfredL-A/EENX-15-20-19
 */
 
+
+/* 
+    TIPS AND TRICKS
+
+    Use    mbed sterm    to open serial terminal, paste in new terminal
+
+*/
+
+
 /* Libraries */
 #include "mbed.h"
 
