@@ -11,6 +11,9 @@
 
 #include "Servo.h"
 
+#include "Globals.h"
+#include "CANCom.h"
+#include <vector>
 
 /* Macro definitions */
 #define BLINKING_RATE     5ms         // Blinking rate in milliseconds
@@ -28,7 +31,45 @@ Servo DCMotor(PA_8);
 static BufferedSerial pc(USBTX, USBRX);
 
 
-void testRange() {
+/* Function prototypes */
+void testDrive();
+
+
+
+
+/* Main function */
+int main()
+{
+    CANCom canRX;
+    canRX.setup();
+
+    /* What this do though?
+    //read out configuration of CAN master control register
+    uint32_t* CAN_MCR = (uint32_t*)0x40006400;
+    //set retry  (ABOM bit in CAN_MCR) to let system reset TEC and REC after bus-off
+    *CAN_MCR |= 1U << 6;
+    */
+
+    while(true) {
+        canRX.updateVariables();
+
+        /*
+        uint8_t temp_msg = 4;
+        databus.write(CANMessage(1319,&temp_msg,1)); 
+        */
+
+        thread_sleep_for(1);
+    }
+
+    return 0;
+}
+
+
+
+/* Function declarations */
+
+// Function for test driving hardware with a keyboard using console
+void testDrive() {
     float speed = 0.5;
     float turn = 0.4;
 
@@ -62,13 +103,4 @@ void testRange() {
             turnServo = turn;
         }
     }
-}
-
-
-/* Main function */
-int main()
-{
-    testRange();
-
-    return 0;
 }
