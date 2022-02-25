@@ -1,0 +1,10 @@
+{
+    "artifact_name": "test-bed",
+    "config": {
+    },
+    "target_overrides": {
+      "*": {
+        "platform.minimal-printf-enable-floating-point": true
+      }
+    }
+}

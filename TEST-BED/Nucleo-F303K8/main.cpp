@@ -13,67 +13,62 @@
 
 
 /* Macro definitions */
-#define BLINKING_RATE     500ms         // Blinking rate in milliseconds
+#define BLINKING_RATE     5ms         // Blinking rate in milliseconds
 
 
 /* Global variables */
-uint32_t speed;
-uint32_t angle;
-float tempVal = 0.5;
-float mid = 0;
+float speed = 0.5;
 float midAngle = 0.4;
-float multiplier = 2.5;
-float deg = 180 / multiplier;
-float servoInc = 0.05;
-float speedConv = 0.01;
-float a = 0.5;
 
 
 /* Global instances */
 Servo turnServo(PB_5);
 Servo DCMotor(PA_8);
 
+static BufferedSerial pc(USBTX, USBRX);
+
+
+void testRange() {
+    float speed = 0.5;
+    float turn = 0.4;
+
+    DCMotor = speed;
+    turnServo = turn;
+
+    char msg[] = "Press 'u' to increase speed, 'd' to turn decrease\n";
+    char *c = new char[1];
+    pc.write(msg, sizeof(msg));
+
+    while (1) {
+        pc.read(c, sizeof(c));
+        if (*c == 'w') {
+            speed += 0.01;
+            printf("Speed: %f \n", speed);
+            DCMotor = speed;
+        }
+        if (*c == 's') {
+            speed -= 0.01;
+            printf("Speed: %f \n", speed);
+            DCMotor = speed;
+        }
+        if (*c == 'a') {
+            turn += 0.02;
+            printf("Turn: %f \n", turn);
+            turnServo = turn;
+        }
+        if (*c == 'd') {
+            turn -= 0.02;
+            printf("Turn: %f \n", turn);
+            turnServo = turn;
+        }
+    }
+}
+
 
 /* Main function */
 int main()
 {
-    DigitalOut led(LED1);
-
-    while (true) {
-        led = !led;
-        ThisThread::sleep_for(BLINKING_RATE);
-    }
-
+    testRange();
 
     return 0;
 }
-
-
-
-/* Old (maybe) useful stuff from previous project to control motors
-
-turnServo=midAngle;    
-
-
-speed = (temp.data[0]*16*16+temp.data[1])/100; //Omvandla från hex till decimal
-
-if(speed <= 100){
-    tempVal=mid+speed*speedConv;
-    DCMotor=tempVal;
-
-case 2:
-
-angle = (temp.data[0]*16*16+temp.data[1])/100; //Omvandla från hex till decimal
-
-
-if(angle > 0 && angle < 327){
-    tempVal = midAngle- angle/deg;
-    turnServo=tempVal;
-}
-else if(angle > 200){
-    angle= angle-655;
-    tempVal=abs( int(angle));
-    tempVal =  midAngle + tempVal/deg;
-    turnServo=tempVal;
-}
-*/
