@@ -27,6 +27,8 @@ Timer periodicCanMsgTimer;
 CANMessage canBuf[canBufSize];
 uint32_t canBufWriteIndex=0;
 
+uint8_t ledFlag = 0;
+
 
 //Shutdown menu messages
 char ACUreboot_msg = 0x1;

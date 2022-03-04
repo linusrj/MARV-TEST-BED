@@ -7,6 +7,8 @@
 #include <Globals.h>
 #include "CANConfig.h"
 
+#include "drivers.h"
+
 void canRxIsr();
 
 
@@ -34,20 +36,20 @@ void CANCom::setup(){
     //databus.filter(CanID::FILTER_ACU, CanID::MASK_NODE, CANFormat::CANStandard, 1);      
 }
 
+
 void canRxIsr(){
     while(databus.read(canBuf[canBufWriteIndex])) {
         canBufWriteIndex++;
         if (canBufWriteIndex==canBufSize)
             canBufWriteIndex=0;
-        }
+    }
 }
 
 void CANCom::updateVariables(){
-    //CAN
-    //Decode incoming message
-    if (canBufReadIndex != canBufWriteIndex) {  //Check if buffer indices are different which indicates that the position at the read index has been filled.
-        switch (canBuf[canBufReadIndex].id) {
+    uint8_t temp_msg = 69;
 
+    if(canBufReadIndex != canBufWriteIndex) {  //Check if buffer indices are different which indicates that the position at the read index has been filled.
+        switch (canBuf[canBufReadIndex].id) {
 
             case 50: //Command, read first two chars as a byte.
                 canCommand.data[0]=canBuf[canBufReadIndex].data[0];
@@ -58,9 +60,22 @@ void CANCom::updateVariables(){
                 canCommand.data[0]=canBuf[canBufReadIndex].data[0];
                 NCU_angle = (uint8_t)canCommand.data[0];
                 break;
+            
+            case 52:
+                canCommand.data[0]=canBuf[canBufReadIndex].data[0];
+                ledFlag = (uint8_t)canCommand.data[0];
+                break;
+
+            case 69:
+                canCommand.data[0]=canBuf[canBufReadIndex].data[0];
+                canCommand.data[1]=canBuf[canBufReadIndex].data[1];
+                turn = (float)canCommand.data[0] / 100;
+                speed = (float)canCommand.data[1] / 100;
+                steering = turn;
+                drive = speed;
 
 
-            default : //No message
+            default: //No message
                 break;
         }
         if(++canBufReadIndex == canBufSize) //Increment buffer index and check for 'wrap around'.

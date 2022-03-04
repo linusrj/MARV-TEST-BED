@@ -4,6 +4,7 @@
 //#include "lib.h" or <lib.h> 
 #include "Config.h"
 #include "mbed.h"
+#include <cstdint>
 #include <string.h>
 
 //Unit Variables
@@ -22,9 +23,10 @@ extern BufferedSerial pc;
 extern CAN databus;
 extern Timer periodicCanMsgTimer;
 
+extern uint8_t ledFlag;
+
 extern CANMessage canBuf[canBufSize];
 extern uint32_t canBufWriteIndex;
-
 
 extern Timer timeLimitTimer;
 
