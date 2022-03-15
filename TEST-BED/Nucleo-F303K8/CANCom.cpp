@@ -11,68 +11,46 @@
 
 void canRxIsr();
 
-
-//### CAN #########################################
 uint32_t canBufReadIndex;
 
-//used to merge/split chars in candata and integer value.
-union command {                 
-    int16_t value;
-    char data[2];
-} canCommand;
 
-bool canStatusReq=false;
-//##################################################
-
-//Constructor
-CANCom::CANCom(){
+CANCom::CANCom() {
     this->canBufReadIndex=0;
 }
 
-void CANCom::setup(){
-    databus.attach(&canRxIsr,CAN::RxIrq);                                          
-    //CAN bus filter
+void CANCom::setup() {
+    databus.attach(&canRxIsr, CAN::RxIrq);                                          
+    //CAN bus filter, not used in this application
     //databus.filter(CanID::FILTER_HEARTBEAT, CanID::MASK_MSG, CANFormat::CANStandard, 0);
     //databus.filter(CanID::FILTER_ACU, CanID::MASK_NODE, CANFormat::CANStandard, 1);      
 }
 
 
-void canRxIsr(){
+void canRxIsr() {
     while(databus.read(canBuf[canBufWriteIndex])) {
         canBufWriteIndex++;
-        if (canBufWriteIndex==canBufSize)
-            canBufWriteIndex=0;
+        if (canBufWriteIndex == canBufSize) {
+            canBufWriteIndex = 0;
+        }
     }
 }
 
-void CANCom::updateVariables(){
-    uint8_t temp_msg = 69;
-
+void CANCom::updateVariables() {
     if(canBufReadIndex != canBufWriteIndex) {  //Check if buffer indices are different which indicates that the position at the read index has been filled.
         switch (canBuf[canBufReadIndex].id) {
 
-            case 50: //Command, read first two chars as a byte.
-                canCommand.data[0]=canBuf[canBufReadIndex].data[0];
-                canCommand.data[1]=canBuf[canBufReadIndex].data[1];
-                break;
-
-            case 51: //Command, read first char as a byte.
-                canCommand.data[0]=canBuf[canBufReadIndex].data[0];
-                NCU_angle = (uint8_t)canCommand.data[0];
-                break;
-            
-            case 52:
-                canCommand.data[0]=canBuf[canBufReadIndex].data[0];
-                ledFlag = (uint8_t)canCommand.data[0];
-                break;
-
-            case 69:
-                canCommand.data[0]=canBuf[canBufReadIndex].data[0];
-                canCommand.data[1]=canBuf[canBufReadIndex].data[1];
-                turn = (float)canCommand.data[0] / 100;
-                speed = (float)canCommand.data[1] / 100;
-                steering = turn;
+            /* ID 33 is for cmdSteering from the ACU, aka REACH */
+            case 33:
+                printf("Forward: %d\nAngle: %d\n\n", canBuf[canBufReadIndex].data[1], canBuf[canBufReadIndex].data[5]);
+                
+                /* We will only be using the forward and angle values, found in the first and fifth elements */
+                speed = (float)canBuf[canBufReadIndex].data[1] / 100;
+                angle = (float)canBuf[canBufReadIndex].data[5] / 100;
+                
                 drive = speed;
+                steering = angle;
+    
+                break;
 
 
             default: //No message

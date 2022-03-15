@@ -5,14 +5,13 @@
 */
 
 #include <mbed.h>
-#include <string.h>
-
 #include "Servo.h"
 
-extern Servo steering;
 extern Servo drive;
+extern Servo steering;
 
 extern float speed;
-extern float turn;
+extern float angle;
 
+void car_init();
 void testDrive();

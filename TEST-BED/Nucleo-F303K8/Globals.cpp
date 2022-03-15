@@ -28,23 +28,3 @@ CANMessage canBuf[canBufSize];
 uint32_t canBufWriteIndex=0;
 
 uint8_t ledFlag = 0;
-
-
-//Shutdown menu messages
-char ACUreboot_msg = 0x1;
-char ACUshutdown_msg = 0x2;
-char DBWreboot_msg = 0x0;
-char SYSreboot_msg = 0x1;
-char SYSshutdown_msg = 0x2;
-
-//State change message
-char stateChange_msg = 0x1;
-
-
-//Notofication variables
-char notificationMessage[notificationMessageLength] = {0};
-char notification_msg = 0x1;
-bool showNotificationPopup = false;
-
-//Send temporary status12V_Auto messages
-uint8_t status12V_Auto = 0;
