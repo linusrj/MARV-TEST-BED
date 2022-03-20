@@ -1,0 +1,14 @@
+html {
+  height: 100%;
+}
+
+video {
+  width: 700px;
+  height: 500px;
+}
+
+pre {
+  background: #555;
+  color: #5F5;
+  padding: 30px;
+}
