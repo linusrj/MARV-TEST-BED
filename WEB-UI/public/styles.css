@@ -3,12 +3,8 @@ html {
 }
 
 video {
-  width: 700px;
-  height: 500px;
-}
-
-pre {
-  background: #555;
-  color: #5F5;
-  padding: 30px;
+  height: 80vh;
+  outline-style: solid;
+  outline-color: rgb(255, 171, 103);
+  outline-width: 2px;
 }

@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>Broadcaster</title>
+    <title>Broadcaster : MARV Web Operator</title>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
   </head>
   <body>
     <section class="select">
@@ -16,10 +18,9 @@
     </section>
 
     <video playsinline autoplay muted></video>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="/broadcast.js"></script>
 
+    <script src="socket.io/socket.io.js"></script>
+    <script src="broadcast.js"></script>
     <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
-    <script src="js/main.js"></script>
   </body>
 </html>
