@@ -7,18 +7,13 @@
 let peerConnection;
 const config = {
   iceServers: [
-/*
     {
       urls: "stun:stun.l.google.com:19302",
     },
-*/
     {
-      urls: "stun:stun:relay.backups.cz",
-    },
-    {
-      urls: "turn:relay.backups.cz",
-      username: "webrtc",
-      credential: "webrtc",
+      urls: "turn:10.70.28.129:1337",
+      username: "admin",
+      credential: "admin",
     },
   ]
 };
