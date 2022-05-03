@@ -16,8 +16,6 @@ class CANCom{
         //Functions
         void setup();
         void updateVariables();
-                
-
 };
 
 #endif //CANCOM_H

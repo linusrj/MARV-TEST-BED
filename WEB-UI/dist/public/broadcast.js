@@ -1,14 +1,25 @@
+/*
+    Broadcaster connection script for MARV Web Operator
+
+    by Linus Johansson and Joakim Osterman, Spring 2022
+*/
+
 const peerConnections = {};
 const config = {
   iceServers: [
-    { 
-      "urls": "stun:stun.l.google.com:19302",
+/*
+    {
+      urls: "stun:stun.l.google.com:19302",
     },
-    // { 
-    //   "urls": "turn:TURN_IP?transport=tcp",
-    //   "username": "TURN_USERNAME",
-    //   "credential": "TURN_CREDENTIALS"
-    // }
+*/
+    {
+      urls: "stun:stun:relay.backups.cz",
+    },
+    {
+      urls: "turn:relay.backups.cz",
+      username: "webrtc",
+      credential: "webrtc",
+    },
   ]
 };
 

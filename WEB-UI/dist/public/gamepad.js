@@ -1,3 +1,9 @@
+/*
+    Gamepad input script for MARV Web Operator
+
+    by Linus Johansson and Joakim Osterman, Spring 2022
+*/
+
 let enabled = false;
 
 window.addEventListener("gamepadconnected", event => {
@@ -25,6 +31,7 @@ function enableGamepad() {
         console.log("Gamepad input disabled");
     }
 }
+
 
 function update() {
     const gamepads = navigator.getGamepads()

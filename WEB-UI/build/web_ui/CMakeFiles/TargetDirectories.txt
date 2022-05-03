@@ -1,9 +1,0 @@
-/home/linus/Desktop/web_ui/build/web_ui/CMakeFiles/install/strip.dir
-/home/linus/Desktop/web_ui/build/web_ui/CMakeFiles/install/local.dir
-/home/linus/Desktop/web_ui/build/web_ui/CMakeFiles/install.dir
-/home/linus/Desktop/web_ui/build/web_ui/CMakeFiles/list_install_components.dir
-/home/linus/Desktop/web_ui/build/web_ui/CMakeFiles/rebuild_cache.dir
-/home/linus/Desktop/web_ui/build/web_ui/CMakeFiles/edit_cache.dir
-/home/linus/Desktop/web_ui/build/web_ui/CMakeFiles/test.dir
-/home/linus/Desktop/web_ui/build/web_ui/CMakeFiles/web_ui_uninstall.dir
-/home/linus/Desktop/web_ui/build/web_ui/CMakeFiles/uninstall.dir
